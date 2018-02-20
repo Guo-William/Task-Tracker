@@ -15,8 +15,13 @@ defmodule TasktrackerWeb.TaskController do
       |> Enum.map(fn oneUser -> {oneUser.username, oneUser.id} end)
       |> Enum.concat([{"select assignee", nil}])
 
+    allStatuses =
+      Tasktracker.Issues.list_statustypes()
+      |> Enum.map(fn oneStatus -> {oneStatus.statustype, oneStatus.id} end)
+      |> Enum.reverse()
+
     changeset = Issues.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset, allUsers: allUsers)
+    render(conn, "new.html", changeset: changeset, allUsers: allUsers, allStatuses: allStatuses)
   end
 
   def create(conn, %{"task" => task_params}) do
@@ -40,10 +45,24 @@ defmodule TasktrackerWeb.TaskController do
     allUsers =
       Tasktracker.Accounts.list_users()
       |> Enum.map(fn oneUser -> {oneUser.username, oneUser.id} end)
+      |> Enum.concat([{"select assignee", nil}])
+
+    allStatuses =
+      Tasktracker.Issues.list_statustypes()
+      |> Enum.map(fn oneStatus -> {oneStatus.statustype, oneStatus.id} end)
+      |> Enum.reverse()
 
     task = Issues.get_task!(id)
     changeset = Issues.change_task(task)
-    render(conn, "edit.html", task: task, changeset: changeset, allUsers: allUsers)
+
+    render(
+      conn,
+      "edit.html",
+      task: task,
+      changeset: changeset,
+      allUsers: allUsers,
+      allStatuses: allStatuses
+    )
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do
