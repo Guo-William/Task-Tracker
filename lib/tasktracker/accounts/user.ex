@@ -3,10 +3,9 @@ defmodule Tasktracker.Accounts.User do
   import Ecto.Changeset
   alias Tasktracker.Accounts.User
 
-
   schema "users" do
-    field :email, :string
-    field :username, :string
+    field(:email, :string)
+    field(:username, :string)
 
     timestamps()
   end
@@ -16,6 +15,7 @@ defmodule Tasktracker.Accounts.User do
     user
     |> cast(attrs, [:email, :username])
     |> validate_required([:email, :username])
+    |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> unique_constraint(:username)
   end

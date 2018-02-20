@@ -21,5 +21,13 @@ defmodule Tasktracker.Issues.Task do
     task
     |> cast(attrs, [:details, :title, :timespent, :owner_id, :status_id, :assignee_id])
     |> validate_required([:title])
+    |> fixTimeSpent
+  end
+
+  defp fixTimeSpent(changeset) do
+    userTime = Kernel.trunc(get_field(changeset, :timespent) / 15 + 1) * 15
+
+    changeset
+    |> change(timespent: userTime)
   end
 end

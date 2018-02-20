@@ -20,8 +20,17 @@ defmodule TasktrackerWeb.TaskController do
       |> Enum.map(fn oneStatus -> {oneStatus.statustype, oneStatus.id} end)
       |> Enum.reverse()
 
+    timespent = 0
     changeset = Issues.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset, allUsers: allUsers, allStatuses: allStatuses)
+
+    render(
+      conn,
+      "new.html",
+      changeset: changeset,
+      allUsers: allUsers,
+      allStatuses: allStatuses,
+      timespent: timespent
+    )
   end
 
   def create(conn, %{"task" => task_params}) do
@@ -61,7 +70,8 @@ defmodule TasktrackerWeb.TaskController do
       task: task,
       changeset: changeset,
       allUsers: allUsers,
-      allStatuses: allStatuses
+      allStatuses: allStatuses,
+      timespent: task.timespent
     )
   end
 
