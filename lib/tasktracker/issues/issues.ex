@@ -115,6 +115,9 @@ defmodule Tasktracker.Issues do
   """
   def list_tasks do
     Repo.all(Task)
+    |> Repo.preload(:owner)
+    |> Repo.preload(:assignee)
+    |> Repo.preload(:status)
   end
 
   @doc """
@@ -131,7 +134,12 @@ defmodule Tasktracker.Issues do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task!(id) do
+    Repo.get!(Task, id)
+    |> Repo.preload(:owner)
+    |> Repo.preload(:assignee)
+    |> Repo.preload(:status)
+  end
 
   @doc """
   Creates a task.

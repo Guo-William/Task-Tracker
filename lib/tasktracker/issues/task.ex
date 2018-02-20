@@ -3,14 +3,15 @@ defmodule Tasktracker.Issues.Task do
   import Ecto.Changeset
   alias Tasktracker.Issues.Task
 
-
   schema "tasks" do
-    field :details, :string
-    field :timespent, :integer
-    field :title, :string
-    field :owner_id, :id
-    field :assignee_id, :id
-    field :status_id, :id
+    field(:details, :string)
+    field(:timespent, :integer)
+    field(:title, :string)
+    belongs_to(:owner, Tasktracker.Accounts.User)
+    belongs_to(:assignee, Tasktracker.Accounts.User)
+    # field(:assignee_id, :id)
+    belongs_to(:status, Tasktracker.Issues.Statustype)
+    # field(:status_id, :id)
 
     timestamps()
   end
@@ -19,6 +20,6 @@ defmodule Tasktracker.Issues.Task do
   def changeset(%Task{} = task, attrs) do
     task
     |> cast(attrs, [:details, :title, :timespent])
-    |> validate_required([:details, :title, :timespent])
+    |> validate_required([:title])
   end
 end

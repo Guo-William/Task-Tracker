@@ -11,15 +11,34 @@
 # and so on) as they will fail if something goes wrong.
 alias Tasktracker.Repo
 alias Tasktracker.Issues.Statustype
+alias Tasktracker.Accounts.User
+alias Tasktracker.Issues.Task
 
 Repo.insert!(%Statustype{
   statustype: "Completed"
 })
 
 Repo.insert!(%Statustype{
-  statustype: "Inprogress"
+  statustype: "In progress"
 })
 
 Repo.insert!(%Statustype{
   statustype: "Unassigned"
+})
+
+Repo.insert!(%User{
+  email: "Jack@Jack.com",
+  username: "Jack"
+})
+
+Repo.insert!(%User{
+  email: "Jill@Jill.com",
+  username: "Jill"
+})
+
+Repo.insert!(%Task{
+  title: "test",
+  owner_id: 1,
+  assignee_id: 2,
+  status_id: 2
 })

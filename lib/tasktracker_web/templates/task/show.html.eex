@@ -3,18 +3,33 @@
 <ul>
 
   <li>
-    <strong>Details:</strong>
-    <%= @task.details %>
-  </li>
-
-  <li>
     <strong>Title:</strong>
     <%= @task.title %>
   </li>
 
   <li>
+    <strong>Status:</strong>
+    <%= @task.status.statustype %>
+  </li>
+
+  <li>
+    <strong>Details:</strong>
+    <%= @task.details %>
+  </li>
+
+  <li>
     <strong>Timespent:</strong>
     <%= @task.timespent %>
+  </li>
+
+  <li>
+    <strong>Owner:</strong>
+    <%= @task.owner.username %>
+  </li>
+
+  <li>
+    <strong>Assignee:</strong>
+    <%= @task.assignee.username %>
   </li>
 
 </ul>
