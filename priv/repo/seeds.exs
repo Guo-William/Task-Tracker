@@ -14,16 +14,21 @@ alias Tasktracker.Issues.Statustype
 alias Tasktracker.Accounts.User
 alias Tasktracker.Issues.Task
 
+appconstants = Appconstants.appconstants()
+
 Repo.insert!(%Statustype{
-  statustype: "Completed"
+  id: Map.get(appconstants, :COMPLETE_INDEX),
+  statustype: Map.get(appconstants, :COMPLETE)
 })
 
 Repo.insert!(%Statustype{
-  statustype: "In progress"
+  id: Map.get(appconstants, :INPROGRESS_INDEX),
+  statustype: Map.get(appconstants, :INPROGRESS)
 })
 
 Repo.insert!(%Statustype{
-  statustype: "Unassigned"
+  id: Map.get(appconstants, :NOTSTARTED_INDEX),
+  statustype: Map.get(appconstants, :NOTSTARTED)
 })
 
 Repo.insert!(%User{

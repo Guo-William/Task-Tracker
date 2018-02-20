@@ -13,6 +13,7 @@ defmodule TasktrackerWeb.TaskController do
     allUsers =
       Tasktracker.Accounts.list_users()
       |> Enum.map(fn oneUser -> {oneUser.username, oneUser.id} end)
+      |> Enum.concat([{"select assignee", nil}])
 
     changeset = Issues.change_task(%Task{})
     render(conn, "new.html", changeset: changeset, allUsers: allUsers)
