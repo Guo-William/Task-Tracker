@@ -19,7 +19,7 @@ defmodule Tasktracker.Issues.Task do
   @doc false
   def changeset(%Task{} = task, attrs) do
     task
-    |> cast(attrs, [:details, :title, :timespent, :owner_id, :status_id])
+    |> cast(attrs, [:details, :title, :timespent, :owner_id, :status_id, :assignee_id])
     |> validate_required([:title])
   end
 end

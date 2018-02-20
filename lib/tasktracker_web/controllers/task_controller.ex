@@ -10,8 +10,12 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def new(conn, _params) do
+    allUsers =
+      Tasktracker.Accounts.list_users()
+      |> Enum.map(fn oneUser -> {oneUser.username, oneUser.id} end)
+
     changeset = Issues.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, allUsers: allUsers)
   end
 
   def create(conn, %{"task" => task_params}) do
@@ -32,9 +36,13 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def edit(conn, %{"id" => id}) do
+    allUsers =
+      Tasktracker.Accounts.list_users()
+      |> Enum.map(fn oneUser -> {oneUser.username, oneUser.id} end)
+
     task = Issues.get_task!(id)
     changeset = Issues.change_task(task)
-    render(conn, "edit.html", task: task, changeset: changeset)
+    render(conn, "edit.html", task: task, changeset: changeset, allUsers: allUsers)
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do
