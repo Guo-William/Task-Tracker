@@ -156,6 +156,7 @@ defmodule Tasktracker.Issues do
   def create_task(attrs \\ %{}) do
     %Task{}
     |> Task.changeset(attrs)
+    |> Map.put(:status_id, 3)
     |> Repo.insert()
   end
 

@@ -29,7 +29,11 @@
 
   <li>
     <strong>Assignee:</strong>
-    <%= @task.assignee.username %>
+    <%= if @task.assignee do %>
+      <%= @task.assignee.username %>
+    <% else %>
+      <p> unassigned </p>
+    <% end %>
   </li>
 
 </ul>

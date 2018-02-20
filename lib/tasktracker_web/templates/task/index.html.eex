@@ -19,7 +19,13 @@
       <td><%= task.title %></td>
       <td><%= task.details %></td>
       <td><%= task.owner.username %></td>
-      <td><%= task.assignee.username %></td>
+      <td>
+        <%= if task.assignee do %>
+          <%= task.assignee.username %>
+        <% else %>
+          <p> unassigned </p>
+        <% end %>
+      </td>
       <td><%= task.timespent %></td>
 
       <td class="text-right">
