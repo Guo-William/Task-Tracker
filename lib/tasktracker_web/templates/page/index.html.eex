@@ -1,12 +1,20 @@
 <%# boiler code from https://github.com/NatTuck/microblog %>
-<h1>Log In</h1>
-<%= form_tag("/session", method: :post) do %>
-  <div class="form-group">
-    Email
-    <input type="email" name="email" placeholder="user@example.com" >
+<div class="row">
+  <div class="col-4"></div>
+  <div class="col-4 text-center login-box">
+    <h1>Log In</h1>
+    <%= form_tag("/session", method: :post) do %>
+      <div class="form-group">
+        Email:
+        <input type="email" name="email" placeholder="user@example.com" >
+      </div>
+      <button class="btn btn-primary">Log in</button>
+      <div class="form-group">
+        <br>
+        <%= link "Register", to: user_path(@conn, :new) %>
+      </div>
+    <% end %>
   </div>
-  <div class="form-group">
-    <button class="btn btn-primary">Log in</button>
-    <%= link "Register", to: user_path(@conn, :new) %>
-  </div>
-<% end %>
+  <div class="col-4"></div>
+</div>
+

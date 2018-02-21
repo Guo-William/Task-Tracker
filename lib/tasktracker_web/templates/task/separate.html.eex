@@ -1,0 +1,13 @@
+<h2>In progress Task</h2>
+<%= render "index.html", tasks: @inProgressTasks, conn: @conn, colorClass: 'bg-success'%>
+<br>
+<h2>Unstarted Task</h2>
+<%= render "index.html", tasks: @unstartedTasks, conn: @conn, colorClass: 'bg-warning' %>
+<br>
+<h2>Complete Task</h2>
+<%= render "index.html", tasks: @completedTasks, conn: @conn, colorClass: 'bg-primary' %>
+<br>
+<span><%= link "New Task", to: task_path(@conn, :new), class: "btn btn-xs btn-success" %></span>
+<br>
+<br>
+<br>

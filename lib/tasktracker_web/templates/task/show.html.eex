@@ -1,7 +1,6 @@
 <h2>Show Task</h2>
-
-<ul>
-
+<span><%= link "Edit", to: task_path(@conn, :edit, @task), class: "btn btn-xs btn-primary" %></span>
+<ul class="list-unstyled">
   <li>
     <strong>Title:</strong>
     <%= @task.title %>
@@ -37,6 +36,4 @@
   </li>
 
 </ul>
-
-<span><%= link "Edit", to: task_path(@conn, :edit, @task) %></span>
-<span><%= link "Back", to: task_path(@conn, :index) %></span>
+<span><%= link "Back", to: task_path(@conn, :index), class: "btn btn-xs btn-primary" %></span>

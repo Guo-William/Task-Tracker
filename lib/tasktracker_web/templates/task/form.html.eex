@@ -11,32 +11,32 @@
     <%= error_tag f, :owner_id %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group col-2">
     <%= label f, :status_id, "Status", class: "control-label" %>
     <%= select f, :status_id, @allStatuses, class: "form-control" %>
     <%= error_tag f, :status_id %>
   </div>  
 
-  <div class="form-group">
+  <div class="form-group col-2">
     <%= label f, :title, class: "control-label" %>
     <%= text_input f, :title, class: "form-control", required: true%>
     <%= error_tag f, :title %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group col-12">
     <%= label f, :details, class: "control-label" %>
     <%= textarea f, :details, class: "form-control" %>
     <%= error_tag f, :details %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group col-4">
     <%= label f, :assignee_id, "Assignee", class: "control-label" %>
     <%= select f, :assignee_id, @allUsers, class: "form-control" %>
     <%= error_tag f, :assignee_id %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :timespent, "Time spent (will rounded up to the nearest 15 minutes)", class: "control-label" %>
+  <div class="form-group col-2">
+    <%= label f, :timespent, "Time spent (will rounded up to the nearest 15 minutes)", class: "control-label col-form-label-sm" %>
     <%= number_input f, :timespent, value: @timespent, class: "form-control" %>
     <%= error_tag f, :timespent %>
   </div>

@@ -6,7 +6,26 @@ defmodule TasktrackerWeb.TaskController do
 
   def index(conn, _params) do
     tasks = Issues.list_tasks()
-    render(conn, "index.html", tasks: tasks)
+
+    completedTasks =
+      tasks
+      |> Enum.filter(fn task -> task.status.id == 1 end)
+
+    inProgressTasks =
+      tasks
+      |> Enum.filter(fn task -> task.status.id == 2 end)
+
+    unstartedTasks =
+      tasks
+      |> Enum.filter(fn task -> task.status.id == 3 end)
+
+    render(
+      conn,
+      "separate.html",
+      completedTasks: completedTasks,
+      inProgressTasks: inProgressTasks,
+      unstartedTasks: unstartedTasks
+    )
   end
 
   def new(conn, _params) do

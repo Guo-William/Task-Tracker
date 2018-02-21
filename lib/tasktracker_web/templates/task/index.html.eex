@@ -1,11 +1,8 @@
-<h2>Listing Tasks</h2>
-
 <table class="table">
   <thead>
     <tr>
       <th>Status</th>
       <th>Title</th>
-      <th>Details</th>
       <th>Owner</th>
       <th>Assignee</th>
       <th>Timespent</th>
@@ -14,10 +11,9 @@
   </thead>
   <tbody>
 <%= for task <- @tasks do %>
-    <tr>
+    <tr class="<%= @colorClass%>">
       <td><%= task.status.statustype %></td>
       <td><%= task.title %></td>
-      <td><%= task.details %></td>
       <td><%= task.owner.username %></td>
       <td>
         <%= if task.assignee do %>
@@ -29,13 +25,12 @@
       <td><%= task.timespent %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs text-white" %></span>
+        <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs text-white" %></span>
+        <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs text-white" %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Task", to: task_path(@conn, :new) %></span>
