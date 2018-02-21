@@ -33,7 +33,7 @@ if [ -d ~/www/tasktracker ]; then
 fi
 
 mkdir -p ~/www/tasktracker
-REL_TAR=~/src/tasktracker/_build/prod/rel/tasktracker/releases/0.0.1/tasktracker.tar.gz
+REL_TAR=~/src/Task-Tracker/_build/prod/rel/tasktracker/releases/0.0.1/tasktracker.tar.gz
 (cd ~/www/tasktracker && tar xzvf $REL_TAR)
 
 crontab - <<CRONTAB
