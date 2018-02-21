@@ -36,6 +36,9 @@ mkdir -p ~/www/tasktracker
 REL_TAR=~/src/Task-Tracker/_build/prod/rel/tasktracker/releases/0.0.1/tasktracker.tar.gz
 (cd ~/www/tasktracker && tar xzvf $REL_TAR)
 
+mix ecto.reset
+MIX_ENV=prod PORT=5001 mix run priv/repo/seeds.exs
+
 crontab - <<CRONTAB
 @reboot bash /home/tasktracker/src/Task-Tracker/start.sh
 CRONTAB
