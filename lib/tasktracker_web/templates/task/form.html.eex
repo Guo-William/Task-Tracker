@@ -12,7 +12,7 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :status, class: "control-label" %>
+    <%= label f, :status_id, "Status", class: "control-label" %>
     <%= select f, :status_id, @allStatuses, class: "form-control" %>
     <%= error_tag f, :status_id %>
   </div>  
@@ -30,13 +30,13 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :assignee, class: "control-label" %>
+    <%= label f, :assignee_id, "Assignee", class: "control-label" %>
     <%= select f, :assignee_id, @allUsers, class: "form-control" %>
     <%= error_tag f, :assignee_id %>
   </div>
 
   <div class="form-group">
-    <%= label f, :time_spent_in_minutes, class: "control-label" %>
+    <%= label f, :timespent, "Time spent rounded up to the nearest 15 minutes", class: "control-label" %>
     <%= number_input f, :timespent, value: @timespent, class: "form-control" %>
     <%= error_tag f, :timespent %>
   </div>

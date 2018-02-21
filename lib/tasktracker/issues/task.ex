@@ -25,7 +25,16 @@ defmodule Tasktracker.Issues.Task do
   end
 
   defp fixTimeSpent(changeset) do
-    userTime = Kernel.trunc(get_field(changeset, :timespent) / 15 + 1) * 15
+    timeEntered = get_field(changeset, :timespent)
+
+    roundSurplus =
+      if rem(timeEntered, 15) == 0 do
+        0
+      else
+        1
+      end
+
+    userTime = Kernel.trunc(timeEntered / 15 + roundSurplus) * 15
 
     changeset
     |> change(timespent: userTime)
