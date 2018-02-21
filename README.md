@@ -1,5 +1,40 @@
 # Tasktracker
 
+decisions made:
+Users will have an email and username. The email is for logging in but
+the username is for assignee purposes. We do not need the users' name because
+it's not necessary for task assignment. Added unique constraints on both
+because we do not want multiple accounts sharing email addresses or usernames
+that would create chaos!
+
+Statustypes are its own thing in issues. I made them separate with a different
+database table too. This is so that everything can reference one spelling
+and indexing of the statuses. This gives the effect that it is organized
+and updating any spelling or indexing for it takes place in one spot.
+
+In this particular instance I made three kinds of statuses: Complete,
+In progress, and not started
+
+Tasks has an owner_id because it may be important to know who made the task
+and to ask them questions if the task is unclear.
+
+I also decided to use seeds.exs so that the database is populated
+with the initial status types and with some initial users. This leads
+to a easier time testing and a avoids problems where my code expects
+status types to already be there first.
+
+Another design decision was to allow the user to enter any number as the
+timespent. I would take their input and process it to round up to the next
+increment of 15.
+
+I decided that the edit and new form would be the same for tasks. This
+is because every field exposed should be subject to change at any time
+in my belief.
+
+I made a UX decision to make assignee and status select drop downs. This
+allows the user to see their choices immediately without having to guess around.
+
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
