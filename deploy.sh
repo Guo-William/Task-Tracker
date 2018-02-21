@@ -2,19 +2,19 @@
 
 export PORT=5101
 export MIX_ENV=prod
-export GIT_PATH=/home/tasktracker/Task-Tracker
+export GIT_PATH=/home/tasktracker/src/Task-Tracker 
 
 PWD=`pwd`
 if [ $PWD != $GIT_PATH ]; then
-    echo "Error: Must check out git repo to $GIT_PATH"
-    echo "  Current directory is $PWD"
-    exit 1
+	echo "Error: Must check out git repo to $GIT_PATH"
+	echo "  Current directory is $PWD"
+	exit 1
 fi
 
 if [ $USER != "tasktracker" ]; then
-    echo "Error: must run as user 'tasktracker'"
-    echo "  Current user is $USER"
-    exit 2
+	echo "Error: must run as user 'tasktracker'"
+	echo "  Current user is $USER"
+	exit 2
 fi
 
 mix deps.get
@@ -28,16 +28,16 @@ mkdir -p ~/old
 
 NOW=`date +%s`
 if [ -d ~/www/tasktracker ]; then
-    echo mv ~/www/tasktracker ~/old/$NOW
-    mv ~/www/tasktracker ~/old/$NOW
+	echo mv ~/www/tasktracker ~/old/$NOW
+	mv ~/www/tasktracker ~/old/$NOW
 fi
 
 mkdir -p ~/www/tasktracker
-REL_TAR=~/Task-Tracker/_build/prod/rel/tasktracker/releases/0.0.1/tasktracker.tar.gz
+REL_TAR=~/src/tasktracker/_build/prod/rel/tasktracker/releases/0.0.1/tasktracker.tar.gz
 (cd ~/www/tasktracker && tar xzvf $REL_TAR)
 
 crontab - <<CRONTAB
-@reboot bash /home/tasktracker/src/tasktracker/start.sh
+@reboot bash /home/tasktracker/src/Task-Tracker/start.sh
 CRONTAB
 
 #. start.sh
