@@ -3,7 +3,7 @@ defmodule TasktrackerWeb.SessionController do
 
   alias Tasktracker.Accounts
   alias Tasktracker.Accounts.User
-
+  # boiler plate code from https://github.com/NatTuck/microblog
   def create(conn, %{"email" => email}) do
     user = Accounts.get_user_by_email(email)
 
@@ -26,5 +26,3 @@ defmodule TasktrackerWeb.SessionController do
     |> redirect(to: page_path(conn, :index))
   end
 end
-
-# TODO: NAT TUCK

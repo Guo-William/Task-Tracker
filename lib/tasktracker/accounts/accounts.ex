@@ -8,7 +8,7 @@ defmodule Tasktracker.Accounts do
 
   alias Tasktracker.Accounts.User
 
-  # We want a non-bang variant
+  # below two functions obtained from https://github.com/NatTuck/microblog
   def get_user(id), do: Repo.get(User, id)
 
   # And we want by-email lookup
@@ -16,7 +16,6 @@ defmodule Tasktracker.Accounts do
     Repo.get_by(User, email: e)
   end
 
-  # TODO NAT TUCK
   @doc """
   Returns the list of users.
 

@@ -19,6 +19,7 @@
       <%= if get_flash(@conn, :error) do %>
         <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <% end %>
+      <%# boiler code from https://github.com/NatTuck/microblog %>
       <div class="row">
         <div class="col-3 offset-9">
           <%= if @current_user do %>
@@ -31,7 +32,6 @@
           <% end %>
         </div>
       </div>
-      <%# TODO:NAT TUCK %>
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>

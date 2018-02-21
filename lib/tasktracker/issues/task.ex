@@ -9,9 +9,7 @@ defmodule Tasktracker.Issues.Task do
     field(:title, :string)
     belongs_to(:owner, Tasktracker.Accounts.User)
     belongs_to(:assignee, Tasktracker.Accounts.User)
-    # field(:assignee_id, :id)
     belongs_to(:status, Tasktracker.Issues.Statustype)
-    # field(:status_id, :id)
 
     timestamps()
   end

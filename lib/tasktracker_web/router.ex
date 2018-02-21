@@ -13,7 +13,6 @@ defmodule TasktrackerWeb.Router do
 
   # Below the pipeline
   def get_current_user(conn, _params) do
-    # TODO: Move this function out of the router module.
     user_id = get_session(conn, :user_id)
     user = Tasktracker.Accounts.get_user(user_id || -1)
     assign(conn, :current_user, user)
@@ -30,7 +29,7 @@ defmodule TasktrackerWeb.Router do
     get("/", PageController, :index)
     resources("/users", UserController)
     resources("/tasks", TaskController)
-
+    # boiler code from https://github.com/NatTuck/microblog
     post("/session", SessionController, :create)
     delete("/session", SessionController, :delete)
   end
