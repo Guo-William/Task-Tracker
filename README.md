@@ -34,6 +34,12 @@ in my belief.
 I made a UX decision to make assignee and status select drop downs. This
 allows the user to see their choices immediately without having to guess around.
 
+You can change the status from any status to any other status. This is
+because I believe that tasks/issues may need to be revisted.
+
+Assigned users can be changed because what if someone disappears or something
+still need someone to work on it.
+
 
 To start your Phoenix server:
 
