@@ -32,6 +32,8 @@ defmodule TasktrackerWeb.Router do
     # boiler code from https://github.com/NatTuck/microblog
     post("/session", SessionController, :create)
     delete("/session", SessionController, :delete)
+
+    resources("/managements", ManagementController, except: [:new, :edit])
   end
 
   # Other scopes may use custom stacks.
