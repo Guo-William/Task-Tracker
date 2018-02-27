@@ -6,18 +6,25 @@ defmodule TasktrackerWeb.TaskController do
 
   def index(conn, _params) do
     tasks = Issues.list_tasks()
+    appconstants = Appconstants.appconstants()
 
     completedTasks =
       tasks
-      |> Enum.filter(fn task -> task.status.id == 1 end)
+      |> Enum.filter(fn task ->
+        task.status.id == Map.get(appconstants, :COMPLETE_INDEX)
+      end)
 
     inProgressTasks =
       tasks
-      |> Enum.filter(fn task -> task.status.id == 2 end)
+      |> Enum.filter(fn task ->
+        task.status.id == Map.get(appconstants, :INPROGRESS_INDEX)
+      end)
 
     unstartedTasks =
       tasks
-      |> Enum.filter(fn task -> task.status.id == 3 end)
+      |> Enum.filter(fn task ->
+        task.status.id == Map.get(appconstants, :NOTSTARTED_INDEX)
+      end)
 
     render(
       conn,
