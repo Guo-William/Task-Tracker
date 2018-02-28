@@ -1,3 +1,9 @@
+// Boiler plate code from https://github.com/NatTuck/microblog
+<script>
+ window.manage_path = "<%= manage_path(@conn, :index) %>";
+ window.current_user_id = "<%= @current_user.id %>";
+</script>
+
 <h2>Listing Users</h2>
 
 <table class="table">
@@ -16,9 +22,9 @@
         <%= if (not (Enum.member?(@free_users, user.id) 
                 or Enum.member?(@managees, user.id))) 
                 or user.id == @current_user.managers.id do %>
-          <button class="btn btn-default" data-managee-id="<%= user.id %>" disabled>
+          <button class="btn btn-default" data-managee-id="<%= user.id %>" data-manages-id="<%= @manages_map[user.id] %>" disabled>
         <% else %>
-          <button class="manage-button btn btn-default" data-managee-id="<%= user.id %>">
+          <button class="manage-button btn btn-default" data-managee-id="<%= user.id %>" data-manages-id="<%= @manages_map[user.id] %>">
         <% end %>
           <%= if Enum.member?(@free_users, user.id) and user.id != @current_user.managers.id do %>
             <span>Add Managee</span>
