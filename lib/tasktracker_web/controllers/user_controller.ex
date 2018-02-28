@@ -28,7 +28,30 @@ defmodule TasktrackerWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    render(conn, "show.html", user: user)
+
+    managees_names =
+      Accounts.manages_map_for(id)
+      |> Map.keys()
+      |> Enum.map(fn id -> Accounts.get_user!(id) |> (& &1.username).() end)
+
+    manager_id = Accounts.get_manager_id_for(id)
+
+    if manager_id do
+      manager_name =
+        Accounts.get_manager_id_for(id)
+        |> Accounts.get_user!()
+        |> (& &1.username).()
+    else
+      manager_name = "N/A"
+    end
+
+    render(
+      conn,
+      "show.html",
+      user: user,
+      managees_names: managees_names,
+      manager_name: manager_name
+    )
   end
 
   def edit(conn, %{"id" => id}) do

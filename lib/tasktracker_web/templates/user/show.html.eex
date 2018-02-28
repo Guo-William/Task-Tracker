@@ -12,6 +12,18 @@
     <%= @user.username %>
   </li>
 
+  <li>
+    <strong>Manager:</strong>
+    <%= @manager_name %>
+  </li>
+  
+  <li>
+    <strong>Managees:</strong>
+    <%= for managee <- @managees_names do %>
+      <ul><%=managee%> </ul>
+    <% end %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>

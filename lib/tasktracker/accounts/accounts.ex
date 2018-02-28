@@ -205,4 +205,17 @@ defmodule Tasktracker.Accounts do
   def change_manage(%Manage{} = manage) do
     Manage.changeset(manage, %{})
   end
+
+  # boiler plate code from https://github.com/NatTuck/microblog
+  def manages_map_for(user_id) do
+    Repo.all(from(f in Manage, where: f.manager_id == ^user_id))
+    |> Enum.map(&{&1.managee_id, &1.id})
+    |> Enum.into(%{})
+  end
+
+  def get_manager_id_for(user_id) do
+    Repo.all(from(f in Manage, where: f.managee_id == ^user_id))
+    |> Enum.map(& &1.manager_id)
+    |> Enum.at(0)
+  end
 end
