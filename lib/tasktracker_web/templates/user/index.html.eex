@@ -12,9 +12,27 @@
   <tbody>
 <%= for user <- @users do %>
     <tr>
+      <td>
+        <%= if Enum.member?(@free_users, user.id) do %>
+          <button class="btn btn-default" data-managee-id="<%= user.id %>">
+        <% else %>
+          <button class="btn btn-default" data-managee-id="<%= user.id %>" disabled>
+        <% end %>
+          <%= if Enum.member?(@free_users, user.id) do %>
+            <span>Add Managee</span>
+          <% else %>
+            <%= if Enum.member?(@managees, user.id) do %>
+              <span>You are Manager</span>
+            <% else %>
+              <span>Not available</span>
+            <% end %>
+          <% end %>
+        </button>
+      </td>
+
       <td><%= user.email %></td>
       <td><%= user.username %></td>
-
+      
       <td class="text-right">
         <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>

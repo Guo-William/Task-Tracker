@@ -5,8 +5,19 @@ defmodule TasktrackerWeb.UserController do
   alias Tasktracker.Accounts.User
 
   def index(conn, _params) do
+    current_user = conn.assigns[:current_user]
     users = Accounts.list_users()
-    render(conn, "index.html", users: users)
+
+    managees =
+      Tasktracker.Accounts.manages_map_for(current_user.id)
+      |> Map.keys()
+
+    all_user_ids = Tasktracker.Accounts.list_users() |> Enum.map(& &1.id)
+    not_free = Tasktracker.Accounts.list_manages() |> Enum.map(& &1.managee_id) |> Enum.uniq()
+
+    free_users = all_user_ids -- not_free
+
+    render(conn, "index.html", users: users, managees: managees, free_users: free_users)
   end
 
   def new(conn, _params) do
