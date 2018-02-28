@@ -7,6 +7,7 @@ defmodule Tasktracker.Accounts.User do
   schema "users" do
     field(:email, :string)
     field(:username, :string)
+    field(:is_manager, :boolean)
     has_one(:manager_user, Management, foreign_key: :manager_id)
     has_many(:managed_user, Management, foreign_key: :managed_id)
     has_one(:managers, through: [:manager_user, :manager])
@@ -18,8 +19,8 @@ defmodule Tasktracker.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :username])
-    |> validate_required([:email, :username])
+    |> cast(attrs, [:email, :username, :is_manager])
+    |> validate_required([:email, :username, :is_manager])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> unique_constraint(:username)
