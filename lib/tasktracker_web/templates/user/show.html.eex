@@ -13,6 +13,11 @@
   </li>
 
   <li>
+    <strong>Is this user a Manager?:</strong>
+    <%= @user.is_manager %>
+  </li>
+
+  <li>
     <strong>Manager:</strong>
     <%= @manager_name %>
   </li>
