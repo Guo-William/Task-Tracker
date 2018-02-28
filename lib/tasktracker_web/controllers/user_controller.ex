@@ -61,7 +61,7 @@ defmodule TasktrackerWeb.UserController do
         |> Accounts.get_user!()
         |> (& &1.username).()
       else
-        "N/A"
+        "None"
       end
 
     render(

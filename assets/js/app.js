@@ -21,7 +21,7 @@ import $ from "jquery";
 // import socket from "./socket"
 
 // Boiler plate code from https://github.com/NatTuck/microblog
-// modified to fit my own needs
+// heavily modified to fit my own needs
 function update_buttons() {
     $('.manage-button').each((_, bb) => {
         let managee_id = $(bb).data('managee-id');

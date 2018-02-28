@@ -9,6 +9,9 @@ defmodule Tasktracker.Accounts.User do
     field(:username, :string)
     field(:is_manager, :boolean)
 
+    # boiler code from https://github.com/NatTuck/microblog
+    # changed to fit my needs
+
     # all Manage records where I am the manager
     has_many(:manager_manages, Manage, foreign_key: :manager_id)
     # all Manage records where I am the managed
