@@ -36,8 +36,12 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def new(conn, _params) do
-    allUsers =
-      Tasktracker.Accounts.list_users()
+    current_user = conn.assigns[:current_user]
+
+    all_managees =
+      Tasktracker.Accounts.get_user(current_user.id).managees
+      |> Enum.map(& &1.id)
+      |> Enum.map(&Tasktracker.Accounts.get_user(&1))
       |> Enum.map(fn oneUser -> {oneUser.username, oneUser.id} end)
       |> Enum.concat([{"select assignee", nil}])
 
@@ -53,7 +57,7 @@ defmodule TasktrackerWeb.TaskController do
       conn,
       "new.html",
       changeset: changeset,
-      allUsers: allUsers,
+      all_managees: all_managees,
       allStatuses: allStatuses,
       timespent: timespent
     )
@@ -77,8 +81,12 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def edit(conn, %{"id" => id}) do
-    allUsers =
-      Tasktracker.Accounts.list_users()
+    current_user = conn.assigns[:current_user]
+
+    all_managees =
+      Tasktracker.Accounts.get_user(current_user.id).managees
+      |> Enum.map(& &1.id)
+      |> Enum.map(&Tasktracker.Accounts.get_user(&1))
       |> Enum.map(fn oneUser -> {oneUser.username, oneUser.id} end)
       |> Enum.concat([{"select assignee", nil}])
 
@@ -95,7 +103,7 @@ defmodule TasktrackerWeb.TaskController do
       "edit.html",
       task: task,
       changeset: changeset,
-      allUsers: allUsers,
+      all_managees: all_managees,
       allStatuses: allStatuses,
       timespent: task.timespent
     )

@@ -1,4 +1,4 @@
-// Boiler plate code from https://github.com/NatTuck/microblog
+<%# Boiler plate code from https://github.com/NatTuck/microblog %>
 <script>
  window.manage_path = "<%= manage_path(@conn, :index) %>";
  window.current_user_id = "<%= @current_user.id %>";
