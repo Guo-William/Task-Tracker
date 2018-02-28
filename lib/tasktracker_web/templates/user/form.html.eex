@@ -18,12 +18,6 @@
   </div>
 
   <div class="form-group col-auto">
-    <%= label f, :is_manager, "Are you a manager?", class: "control-label" %>
-    <%= checkbox f, :is_manager, checked_value: true, unchecked_value: false, class: "form-control" %>
-    <%= error_tag f, :is_manager %>
-  </div>
-
-  <div class="form-group col-auto">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

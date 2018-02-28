@@ -13,7 +13,6 @@ alias Tasktracker.Repo
 alias Tasktracker.Issues.Statustype
 alias Tasktracker.Accounts.User
 alias Tasktracker.Issues.Task
-alias Tasktracker.Accounts.Management
 
 appconstants = Appconstants.appconstants()
 
@@ -34,20 +33,17 @@ Repo.insert!(%Statustype{
 
 Repo.insert!(%User{
   email: "aadmin@aadmin.com",
-  username: "aadmin",
-  is_manager: true
+  username: "aadmin"
 })
 
 Repo.insert!(%User{
   email: "Jack@Jack.com",
-  username: "Jack",
-  is_manager: false
+  username: "Jack"
 })
 
 Repo.insert!(%User{
   email: "Jill@Jill.com",
-  username: "Jill",
-  is_manager: false
+  username: "Jill"
 })
 
 Repo.insert!(%Task{

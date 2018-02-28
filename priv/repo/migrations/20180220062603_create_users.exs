@@ -5,7 +5,6 @@ defmodule Tasktracker.Repo.Migrations.CreateUsers do
     create table(:users) do
       add(:email, :string, null: false)
       add(:username, :string, null: false)
-      add(:is_manager, :boolean, null: false)
 
       timestamps()
     end
