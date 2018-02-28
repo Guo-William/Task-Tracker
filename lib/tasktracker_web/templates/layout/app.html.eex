@@ -23,13 +23,10 @@
       <div class="row">
         <div class="col-3 offset-9">
           <%= if @current_user do %>
-            <div class="row">
-              <p>
-                Logged in as: <%= @current_user.username %> |
-                <%= link "Management", to: management_management_dashboard_path(@conn, :management_dashboard, @current_user.id) %> |
-                <%= link "Log Out", to: "/session", method: :delete %>
-              </p>
-            </div>
+            <p>
+              Logged in as: <%= @current_user.username %> |
+              <%= link "Log Out", to: "/session", method: :delete %>
+            </p>
           <% else %>
             <p>Not logged in.</p>
           <% end %>

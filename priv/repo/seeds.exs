@@ -32,11 +32,6 @@ Repo.insert!(%Statustype{
 })
 
 Repo.insert!(%User{
-  email: "aadmin@aadmin.com",
-  username: "aadmin"
-})
-
-Repo.insert!(%User{
   email: "Jack@Jack.com",
   username: "Jack"
 })

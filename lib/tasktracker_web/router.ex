@@ -34,15 +34,6 @@ defmodule TasktrackerWeb.Router do
     delete("/session", SessionController, :delete)
 
     resources("/managements", ManagementController, except: [:new, :edit])
-
-    resources "/managements", ManagementController do
-      get(
-        "/management_dashboard",
-        ManagementController,
-        :management_dashboard,
-        as: :management_dashboard
-      )
-    end
   end
 
   # Other scopes may use custom stacks.
