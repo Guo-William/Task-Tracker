@@ -21,16 +21,23 @@
       <% end %>
       <%# boiler code from https://github.com/NatTuck/microblog %>
       <div class="row">
-        <div class="col-3 offset-9">
           <%= if @current_user do %>
-            <p>
-              Logged in as: <%= @current_user.username %> |
-              <%= link "Log Out", to: "/session", method: :delete %>
-            </p>
+            <%= if @current_user.is_manager do %>
+              <div class="col-4 offset-8">
+            <% else %>
+              <div class="col-3 offset-9">
+            <% end %>
+                <p>
+                  Logged in as: <%= @current_user.username %> |
+                  <%= if @current_user.is_manager do %>
+                    <%= link "management", to: user_path(@conn, :index) %>|
+                  <% end %>
+                  <%= link "Log Out", to: "/session", method: :delete %>
+                </p>
+              </div>
           <% else %>
             <p>Not logged in.</p>
           <% end %>
-        </div>
       </div>
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
