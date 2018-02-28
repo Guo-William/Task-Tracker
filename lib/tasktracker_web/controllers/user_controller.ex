@@ -47,14 +47,14 @@ defmodule TasktrackerWeb.UserController do
 
     manager_id = Accounts.get_manager_id_for(id)
 
-    if manager_id do
-      manager_name =
+    manager_name =
+      if manager_id do
         Accounts.get_manager_id_for(id)
         |> Accounts.get_user!()
         |> (& &1.username).()
-    else
-      manager_name = "N/A"
-    end
+      else
+        "N/A"
+      end
 
     render(
       conn,

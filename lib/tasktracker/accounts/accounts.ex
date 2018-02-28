@@ -9,7 +9,13 @@ defmodule Tasktracker.Accounts do
   alias Tasktracker.Accounts.User
 
   # below two functions obtained from https://github.com/NatTuck/microblog
-  def get_user(id), do: Repo.get(User, id)
+  def get_user(id) do
+    Repo.get(User, id)
+    |> Repo.preload(:managee_manages)
+    |> Repo.preload(:managees)
+    |> Repo.preload(:manager_manages)
+    |> Repo.preload(:managers)
+  end
 
   # And we want by-email lookup
   def get_user_by_email(e) do
@@ -27,6 +33,10 @@ defmodule Tasktracker.Accounts do
   """
   def list_users do
     Repo.all(User)
+    |> Repo.preload(:managee_manages)
+    |> Repo.preload(:managees)
+    |> Repo.preload(:manager_manages)
+    |> Repo.preload(:managers)
   end
 
   @doc """
@@ -43,7 +53,13 @@ defmodule Tasktracker.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    Repo.get!(User, id)
+    |> Repo.preload(:managee_manages)
+    |> Repo.preload(:managees)
+    |> Repo.preload(:manager_manages)
+    |> Repo.preload(:managers)
+  end
 
   @doc """
   Creates a user.

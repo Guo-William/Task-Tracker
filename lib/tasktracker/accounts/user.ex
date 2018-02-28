@@ -8,10 +8,15 @@ defmodule Tasktracker.Accounts.User do
     field(:email, :string)
     field(:username, :string)
     field(:is_manager, :boolean)
-    has_one(:manager_manages, Manage, foreign_key: :manager_id)
-    has_many(:managee_manages, Manage, foreign_key: :managee_id)
-    has_one(:managers, through: [:manager_manages, :manager])
-    has_many(:managees, through: [:managee_manages, :managee])
+
+    # all Manage records where I am the manager
+    has_many(:manager_manages, Manage, foreign_key: :manager_id)
+    # all Manage records where I am the managed
+    has_one(:managee_manages, Manage, foreign_key: :managee_id)
+    # User who manages me
+    has_one(:managers, through: [:managee_manages, :manager])
+    # all Users I manage
+    has_many(:managees, through: [:manager_manages, :managee])
 
     timestamps()
   end
