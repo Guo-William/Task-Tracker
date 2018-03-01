@@ -1,39 +1,40 @@
 <h2>Show Task</h2>
-<span><%= link "Edit", to: task_path(@conn, :edit, @task), class: "btn btn-xs btn-primary" %></span>
-<ul class="list-unstyled">
-  <li>
-    <strong>Title:</strong>
-    <%= @task.title %>
-  </li>
+<div>
+  <span><%= link "Edit", to: task_path(@conn, :edit, @task), class: "btn btn-xs btn-primary" %></span>
+  <ul class="list-unstyled">
+    <li>
+      <strong>Title:</strong>
+      <%= @task.title %>
+    </li>
 
-  <li>
-    <strong>Status:</strong>
-    <%= @task.status.statustype %>
-  </li>
+    <li>
+      <strong>Status:</strong>
+      <%= @task.status.statustype %>
+    </li>
 
-  <li>
-    <strong>Details:</strong>
-    <%= @task.details %>
-  </li>
+    <li>
+      <strong>Details:</strong>
+      <%= @task.details %>
+    </li>
 
-  <li>
-    <strong>Timespent:</strong>
-    <%= @task.timespent %>
-  </li>
+    <li>
+      <strong>Owner:</strong>
+      <%= @task.owner.username %>
+    </li>
 
-  <li>
-    <strong>Owner:</strong>
-    <%= @task.owner.username %>
-  </li>
+    <li>
+      <strong>Assignee:</strong>
+      <%= if @task.assignee do %>
+        <%= @task.assignee.username %>
+      <% else %>
+        <p> unassigned </p>
+      <% end %>
+    </li>
+    <li>
+      <button class="time-button btn btn-default" data-time="" data-time-id="">Start time</button>
+    </li>
 
-  <li>
-    <strong>Assignee:</strong>
-    <%= if @task.assignee do %>
-      <%= @task.assignee.username %>
-    <% else %>
-      <p> unassigned </p>
-    <% end %>
-  </li>
+  </ul>
+  <span><%= button "Back", to: task_path(@conn, :index), class: "btn btn-xs btn-primary" %></span>
+</div>
 
-</ul>
-<span><%= link "Back", to: task_path(@conn, :index), class: "btn btn-xs btn-primary" %></span>

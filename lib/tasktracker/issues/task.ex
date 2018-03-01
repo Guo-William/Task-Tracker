@@ -5,7 +5,6 @@ defmodule Tasktracker.Issues.Task do
 
   schema "tasks" do
     field(:details, :string)
-    field(:timespent, :integer)
     field(:title, :string)
     belongs_to(:owner, Tasktracker.Accounts.User)
     belongs_to(:assignee, Tasktracker.Accounts.User)
@@ -17,28 +16,7 @@ defmodule Tasktracker.Issues.Task do
   @doc false
   def changeset(%Task{} = task, attrs) do
     task
-    |> cast(attrs, [:details, :title, :timespent, :owner_id, :status_id, :assignee_id])
+    |> cast(attrs, [:details, :title, :owner_id, :status_id, :assignee_id])
     |> validate_required([:title])
-    |> fixTimeSpent
-  end
-
-  defp fixTimeSpent(changeset) do
-    timeEntered = get_field(changeset, :timespent)
-
-    if timeEntered do
-      roundSurplus =
-        if rem(timeEntered, 15) == 0 do
-          0
-        else
-          1
-        end
-
-      userTime = Kernel.trunc(timeEntered / 15 + roundSurplus) * 15
-
-      changeset
-      |> change(timespent: userTime)
-    else
-      changeset
-    end
   end
 end

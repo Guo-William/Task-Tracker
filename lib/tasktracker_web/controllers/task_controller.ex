@@ -36,8 +36,12 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def new(conn, _params) do
-    allUsers =
-      Tasktracker.Accounts.list_users()
+    current_user = conn.assigns[:current_user]
+
+    all_managees =
+      Tasktracker.Accounts.get_user(current_user.id).managees
+      |> Enum.map(& &1.id)
+      |> Enum.map(&Tasktracker.Accounts.get_user(&1))
       |> Enum.map(fn oneUser -> {oneUser.username, oneUser.id} end)
       |> Enum.concat([{"select assignee", nil}])
 
@@ -46,16 +50,14 @@ defmodule TasktrackerWeb.TaskController do
       |> Enum.map(fn oneStatus -> {oneStatus.statustype, oneStatus.id} end)
       |> Enum.reverse()
 
-    timespent = 0
     changeset = Issues.change_task(%Task{})
 
     render(
       conn,
       "new.html",
       changeset: changeset,
-      allUsers: allUsers,
-      allStatuses: allStatuses,
-      timespent: timespent
+      all_managees: all_managees,
+      allStatuses: allStatuses
     )
   end
 
@@ -77,8 +79,12 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def edit(conn, %{"id" => id}) do
-    allUsers =
-      Tasktracker.Accounts.list_users()
+    current_user = conn.assigns[:current_user]
+
+    all_managees =
+      Tasktracker.Accounts.get_user(current_user.id).managees
+      |> Enum.map(& &1.id)
+      |> Enum.map(&Tasktracker.Accounts.get_user(&1))
       |> Enum.map(fn oneUser -> {oneUser.username, oneUser.id} end)
       |> Enum.concat([{"select assignee", nil}])
 
@@ -95,9 +101,8 @@ defmodule TasktrackerWeb.TaskController do
       "edit.html",
       task: task,
       changeset: changeset,
-      allUsers: allUsers,
-      allStatuses: allStatuses,
-      timespent: task.timespent
+      all_managees: all_managees,
+      allStatuses: allStatuses
     )
   end
 
@@ -122,5 +127,44 @@ defmodule TasktrackerWeb.TaskController do
     conn
     |> put_flash(:info, "Task deleted successfully.")
     |> redirect(to: task_path(conn, :index))
+  end
+
+  def team(conn, _params) do
+    current_user = conn.assigns[:current_user]
+    appconstants = Appconstants.appconstants()
+
+    all_managees =
+      Tasktracker.Accounts.get_user(current_user.id).managees
+      |> Enum.map(& &1.id)
+
+    tasks =
+      Issues.list_tasks()
+      |> Enum.filter(fn task -> Enum.member?(all_managees, task.assignee_id) end)
+
+    completedTasks =
+      tasks
+      |> Enum.filter(fn task ->
+        task.status.id == Map.get(appconstants, :COMPLETE_INDEX)
+      end)
+
+    inProgressTasks =
+      tasks
+      |> Enum.filter(fn task ->
+        task.status.id == Map.get(appconstants, :INPROGRESS_INDEX)
+      end)
+
+    unstartedTasks =
+      tasks
+      |> Enum.filter(fn task ->
+        task.status.id == Map.get(appconstants, :NOTSTARTED_INDEX)
+      end)
+
+    render(
+      conn,
+      "team.html",
+      completedTasks: completedTasks,
+      inProgressTasks: inProgressTasks,
+      unstartedTasks: unstartedTasks
+    )
   end
 end

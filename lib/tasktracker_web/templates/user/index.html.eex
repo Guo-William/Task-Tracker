@@ -1,20 +1,55 @@
+<%# Boiler plate code from https://github.com/NatTuck/microblog %>
+<script>
+ window.manage_path = "<%= manage_path(@conn, :index) %>";
+ window.current_user_id = "<%= @current_user.id %>";
+</script>
+
 <h2>Listing Users</h2>
 
 <table class="table">
   <thead>
     <tr>
+      <th></th>
       <th>Email</th>
       <th>Username</th>
-
+      <th>Manager</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for user <- @users do %>
     <tr>
+      <td>
+        <%= if (not (Enum.member?(@free_users, user.id) 
+                or Enum.member?(@managees, user.id))) 
+                or user.id == @manager_id do %>
+          <button class="btn btn-default" data-managee-id="<%= user.id %>" data-manages-id="<%= @manages_map[user.id] %>" disabled>
+        <% else %>
+          <button class="manage-button btn btn-default" data-managee-id="<%= user.id %>" data-manages-id="<%= @manages_map[user.id] %>">
+        <% end %>
+          <%= if Enum.member?(@free_users, user.id) and user.id != @manager_id do %>
+            <span>Add Managee</span>
+          <% else %>
+            <%= if user.id == @manager_id do %>
+              <span>Manager</span>
+            <% else %>
+              <%= if Enum.member?(@managees, user.id) do %>
+                <span>Un-manage</span>
+              <% else %>
+                <span>Not available</span>
+              <% end %>
+            <% end %>
+          <% end %>
+        </button>
+      </td>
+
       <td><%= user.email %></td>
       <td><%= user.username %></td>
-
+      <td>
+        <%= if user.managers do %>
+          <%= user.managers.username %>
+        <% end %>
+      </td>
       <td class="text-right">
         <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>

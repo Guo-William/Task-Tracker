@@ -33,12 +33,14 @@ Repo.insert!(%Statustype{
 
 Repo.insert!(%User{
   email: "Jack@Jack.com",
-  username: "Jack"
+  username: "Jack",
+  is_manager: true
 })
 
 Repo.insert!(%User{
   email: "Jill@Jill.com",
-  username: "Jill"
+  username: "Jill",
+  is_manager: false
 })
 
 Repo.insert!(%Task{
