@@ -131,4 +131,43 @@ defmodule TasktrackerWeb.TaskController do
     |> put_flash(:info, "Task deleted successfully.")
     |> redirect(to: task_path(conn, :index))
   end
+
+  def team(conn, _params) do
+    current_user = conn.assigns[:current_user]
+    appconstants = Appconstants.appconstants()
+
+    all_managees =
+      Tasktracker.Accounts.get_user(current_user.id).managees
+      |> Enum.map(& &1.id)
+
+    tasks =
+      Issues.list_tasks()
+      |> Enum.filter(fn task -> Enum.member?(all_managees, task.assignee_id) end)
+
+    completedTasks =
+      tasks
+      |> Enum.filter(fn task ->
+        task.status.id == Map.get(appconstants, :COMPLETE_INDEX)
+      end)
+
+    inProgressTasks =
+      tasks
+      |> Enum.filter(fn task ->
+        task.status.id == Map.get(appconstants, :INPROGRESS_INDEX)
+      end)
+
+    unstartedTasks =
+      tasks
+      |> Enum.filter(fn task ->
+        task.status.id == Map.get(appconstants, :NOTSTARTED_INDEX)
+      end)
+
+    render(
+      conn,
+      "team.html",
+      completedTasks: completedTasks,
+      inProgressTasks: inProgressTasks,
+      unstartedTasks: unstartedTasks
+    )
+  end
 end

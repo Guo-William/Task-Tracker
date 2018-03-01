@@ -23,7 +23,7 @@
       <div class="row">
           <%= if @current_user do %>
             <%= if @current_user.is_manager do %>
-              <div class="col-5 offset-7">
+              <div class="col-6 offset-6">
             <% else %>
               <div class="col-4 offset-8">
             <% end %>
@@ -31,6 +31,7 @@
                   Logged in as: <%= @current_user.username %> |
                   <%= if @current_user.is_manager do %>
                     <%= link "Management", to: user_path(@conn, :index) %>|
+                    <%= link "Team Board", to: task_team_path(@conn, :team, @current_user.id) %>|
                   <% end %>
                   <%= link "Task Board", to: task_path(@conn, :index) %>|
                   <%= link "Log Out", to: "/session", method: :delete %>

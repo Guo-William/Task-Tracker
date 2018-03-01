@@ -29,6 +29,11 @@ defmodule TasktrackerWeb.Router do
     get("/", PageController, :index)
     resources("/users", UserController)
     resources("/tasks", TaskController)
+
+    resources "/tasks", TaskController do
+      get("/team", TaskController, :team, as: :team)
+    end
+
     # boiler code from https://github.com/NatTuck/microblog
     post("/session", SessionController, :create)
     delete("/session", SessionController, :delete)

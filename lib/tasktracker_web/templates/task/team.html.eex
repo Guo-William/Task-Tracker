@@ -1,0 +1,6 @@
+<h2>Team Board</h2>
+
+<%= render "separate.html",conn: @conn,
+    inProgressTasks: @inProgressTasks, 
+    unstartedTasks: @unstartedTasks, 
+    completedTasks: @completedTasks%>
