@@ -50,7 +50,6 @@ defmodule TasktrackerWeb.TaskController do
       |> Enum.map(fn oneStatus -> {oneStatus.statustype, oneStatus.id} end)
       |> Enum.reverse()
 
-    timespent = 0
     changeset = Issues.change_task(%Task{})
 
     render(
@@ -58,8 +57,7 @@ defmodule TasktrackerWeb.TaskController do
       "new.html",
       changeset: changeset,
       all_managees: all_managees,
-      allStatuses: allStatuses,
-      timespent: timespent
+      allStatuses: allStatuses
     )
   end
 
@@ -104,8 +102,7 @@ defmodule TasktrackerWeb.TaskController do
       task: task,
       changeset: changeset,
       all_managees: all_managees,
-      allStatuses: allStatuses,
-      timespent: task.timespent
+      allStatuses: allStatuses
     )
   end
 

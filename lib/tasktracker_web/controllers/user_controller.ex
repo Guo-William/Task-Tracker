@@ -18,13 +18,21 @@ defmodule TasktrackerWeb.UserController do
 
     free_users = all_user_ids -- not_free
 
+    manager_id =
+      if current_user.managers do
+        current_user.managers.id
+      else
+        "a"
+      end
+
     render(
       conn,
       "index.html",
       users: users,
       managees: managees,
       free_users: free_users,
-      manages_map: manages_map
+      manages_map: manages_map,
+      manager_id: manager_id
     )
   end
 

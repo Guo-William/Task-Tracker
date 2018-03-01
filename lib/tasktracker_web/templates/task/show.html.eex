@@ -17,11 +17,6 @@
   </li>
 
   <li>
-    <strong>Timespent:</strong>
-    <%= @task.timespent %>
-  </li>
-
-  <li>
     <strong>Owner:</strong>
     <%= @task.owner.username %>
   </li>

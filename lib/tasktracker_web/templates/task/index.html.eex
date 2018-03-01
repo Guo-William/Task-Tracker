@@ -5,7 +5,6 @@
       <th>Title</th>
       <th>Owner</th>
       <th>Assignee</th>
-      <th>Timespent</th>
       <th></th>
     </tr>
   </thead>
@@ -22,7 +21,6 @@
           <p> unassigned </p>
         <% end %>
       </td>
-      <td><%= task.timespent %></td>
 
       <td class="text-right">
         <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs text-white" %></span>
