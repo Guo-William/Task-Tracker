@@ -1,6 +1,33 @@
 # Tasktracker
 
-decisions made:
+decisions made for task2:
+Users can only become managers during registration time
+Reason: I ran out of time to make it nicer. If I had time I would make it
+so that a manager can elevate one of their managees to a manager position. While
+remaining a manager of them still. Users can still become managers at registration
+time.
+
+Cannot manage your manager or other managers managees. Reasoning: The president
+shouldn't be managed by a junior developer lol.
+
+One manager per user Reasoning: keep the hierarchy clear so that communication
+is easy and management doesn't have to fight each other for control of user
+resurces
+
+Many managees per user
+
+It is possible to unmanage a user
+
+To access the management dashboard I put a link to the user index page
+on the nav bar. 
+
+To access the dashboard for all tasks related to a managers team I put a 
+link on the nav bar "Team Board"
+
+Added a nav link back to the regular task index "Task Board"
+
+
+decisions made for tasks1:
 Users will have an email and username. The email is for logging in but
 the username is for assignee purposes. We do not need the users' name because
 it's not necessary for task assignment. Added unique constraints on both
